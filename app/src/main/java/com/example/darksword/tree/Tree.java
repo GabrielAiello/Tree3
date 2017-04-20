@@ -43,6 +43,28 @@ public class Tree
         }
     }
 
+    public int depthCheck() //runner should always start at zero
+    {
+        int leftDepth = 0;
+        int rightDepth = 0;
+        if (this.getNextTree() != null)
+        {
+            rightDepth = 1 + this.getNextTree().depthCheck();
+        }
+        if (this.getPreviousTree() != null)
+        {
+            rightDepth = 1 + this.getPreviousTree().depthCheck();
+        }
+        if (rightDepth > leftDepth)
+        {
+            return rightDepth;
+        }
+        else
+        {
+            return leftDepth;
+        }
+    }
+
     public Tree getNextTree()
     {
         return nextTree;
@@ -73,3 +95,4 @@ public class Tree
         this.payload = payload;
     }
 }
+

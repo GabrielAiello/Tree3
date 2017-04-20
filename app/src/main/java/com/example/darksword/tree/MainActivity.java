@@ -45,4 +45,38 @@ public class MainActivity extends AppCompatActivity
         }
         return "";
     }
+    public void balanceCheckButtonPressed(View v)
+    {
+        int leftDepth = 0;
+        int rightDepth = 0;
+        if (tree.getPreviousTree() != null)
+        {
+            leftDepth = tree.getPreviousTree().depthCheck();
+        }
+        if (tree.getNextTree()!= null)
+        {
+            rightDepth = tree.getNextTree().depthCheck();
+        }
+        if (rightDepth > leftDepth + 1)
+        {
+            TVdisplay.setText("the right side has greater depth and is out of balance");
+        }
+        else if (rightDepth + 1 < leftDepth)
+        {
+            TVdisplay.setText("the left side has greater depth and is out of balance");
+        }
+        else if (rightDepth > leftDepth)
+        {
+            TVdisplay.setText("the right side has greater depth but is balanced");
+        }
+        else if (rightDepth < leftDepth)
+        {
+            TVdisplay.setText("the left side has greater depth but is balanced");
+        }
+        else
+            {
+                TVdisplay.setText("they are balanced");
+            }
+
+    }
 }

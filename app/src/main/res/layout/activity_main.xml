@@ -29,6 +29,13 @@
             android:onClick="processButtonPressed"
             android:text="Add Tree" />
 
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="balanceCheckButtonPressed"
+            android:text="Check Balance" />
+
         <TextView
             android:id="@+id/TVdisplay"
             android:layout_width="match_parent"
