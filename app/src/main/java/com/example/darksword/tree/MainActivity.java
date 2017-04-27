@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity
 {
     private EditText ETenterval;
     private TextView TVdisplay;
+    private TextView TVTwo;
     private Tree tree = new Tree();
     private String sillyString = "";
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         this.ETenterval = (EditText)this.findViewById(R.id.ETenterVal);
         this.TVdisplay = (TextView)this.findViewById(R.id.TVdisplay);
+        this.TVTwo = (TextView)this.findViewById(R.id.TVTwo);
     }
     public void processButtonPressed (View v)
     {
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity
         this.tree.treeRecursion(b);
         sillyString = sillyString + b;
         TVdisplay.setText(sillyString);
+
+        String depth = "" + this.tree.getBalanceFactor();
+        TVTwo.setText(depth);
     }
     public String stringifyThatTree(Tree t)
     {
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         while(runner.getPayload() != -1)
         {
             concatonationIsFun = concatonationIsFun + runner.getPayload();
-            runner = runner.getNextTree();
+            runner = runner.getRightTree();
         }
         return "";
     }
@@ -49,13 +54,13 @@ public class MainActivity extends AppCompatActivity
     {
         int leftDepth = 0;
         int rightDepth = 0;
-        if (tree.getPreviousTree() != null)
+        if (tree.getLeftTree() != null)
         {
-            leftDepth = tree.getPreviousTree().depthCheck();
+            leftDepth = tree.getLeftTree().depthCheck();
         }
-        if (tree.getNextTree()!= null)
+        if (tree.getRightTree()!= null)
         {
-            rightDepth = tree.getNextTree().depthCheck();
+            rightDepth = tree.getRightTree().depthCheck();
         }
         if (rightDepth > leftDepth + 1)
         {

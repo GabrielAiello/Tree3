@@ -6,15 +6,21 @@ package com.example.darksword.tree;
 
 public class Tree
 {
-    private Tree previousTree;
-    private Tree nextTree;
+    private Tree leftTree;
+    private Tree rightTree;
     private int payload;
+    private Tree parent;
+    private String direction;
+    private int balanceFactor;
 
     public Tree ()
     {
         this.payload = -1;
-        this.nextTree = null;
-        this.previousTree = null;
+        this.rightTree = null;
+        this.leftTree = null;
+        this.parent = null;
+        this.direction = "";
+        this.balanceFactor = 0;
     }
 
     public void treeRecursion (int i)
@@ -27,33 +33,51 @@ public class Tree
         }
         else if (this.getPayload() <= i)
         {
-            if (this.nextTree == null)
+            if (this.rightTree == null)
             {
-                this.setNextTree(b);
+                b.setParent(this);
+                b.setDirection("right");
+                this.setRightTree(b);
             }
-            else this.nextTree.treeRecursion(i);
+            else this.rightTree.treeRecursion(i);
         }
         else if (this.getPayload() >= i)
         {
-            if (this.previousTree == null)
+            if (this.leftTree == null)
             {
-                this.setPreviousTree(b);
+                b.setParent(this);
+                b.setDirection("left");
+                this.setLeftTree(b);
             }
-            else this.previousTree.treeRecursion(i);
+            else this.leftTree.treeRecursion(i);
         }
     }
-
+    public int getBalanceFactor()
+    {
+        int leftDepth = 0;
+        int righDepth = 0;
+        if (this.leftTree != null)
+        {
+            leftDepth = 1 + this.leftTree.depthCheck();
+        }
+        if (this.rightTree != null)
+        {
+            righDepth = 1 + this.rightTree.depthCheck();
+        }
+        this.balanceFactor = righDepth - leftDepth;
+        return this.balanceFactor;
+    }
     public int depthCheck() //runner should always start at zero
     {
         int leftDepth = 0;
         int rightDepth = 0;
-        if (this.getNextTree() != null)
+        if (this.getRightTree() != null)
         {
-            rightDepth = 1 + this.getNextTree().depthCheck();
+            rightDepth = 1 + this.getRightTree().depthCheck();
         }
-        if (this.getPreviousTree() != null)
+        if (this.getLeftTree() != null)
         {
-            rightDepth = 1 + this.getPreviousTree().depthCheck();
+            rightDepth = 1 + this.getLeftTree().depthCheck();
         }
         if (rightDepth > leftDepth)
         {
@@ -65,24 +89,24 @@ public class Tree
         }
     }
 
-    public Tree getNextTree()
+    public Tree getRightTree()
     {
-        return nextTree;
+        return rightTree;
     }
 
-    public void setNextTree(Tree nextTree)
+    public void setRightTree(Tree nextTree)
     {
-        this.nextTree = nextTree;
+        this.rightTree = nextTree;
     }
 
-    public Tree getPreviousTree()
+    public Tree getLeftTree()
     {
-        return previousTree;
+        return leftTree;
     }
 
-    public void setPreviousTree(Tree previousTree)
+    public void setLeftTree(Tree previousTree)
     {
-        this.previousTree = previousTree;
+        this.leftTree = previousTree;
     }
 
     public int getPayload()
@@ -93,6 +117,22 @@ public class Tree
     public void setPayload(int payload)
     {
         this.payload = payload;
+    }
+
+    public Tree getParent() {
+        return parent;
+    }
+
+    public void setParent(Tree parent) {
+        this.parent = parent;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 }
 
